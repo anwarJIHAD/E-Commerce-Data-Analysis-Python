@@ -52,7 +52,7 @@ Notebook telah disusun rapi dengan bagian:
 ## Installation
 1. Clone this repository to your local machine:
 ```
-https://github.com/anwarJIHAD/data-analyst-python.git
+https://github.com/anwarJIHAD/E-Commerce-Data-Analysis-Python.git
 ```
 2. Go to the project directory
 ```
