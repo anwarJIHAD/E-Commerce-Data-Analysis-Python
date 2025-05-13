@@ -6,10 +6,8 @@ Dataset yang digunakan adalah [E-Commerce Public Dataset](https://drive.google.c
 ## 2. Melakukan Seluruh Proses Analisis Data
 
 ### Pertanyaan Bisnis
-1. **Kategori produk apa yang paling banyak mendapatkan review baik dan kurang baik dari pembeli?**  
-2. **Produk apa yang paling laris dan kurang laris di E-commerce?**  
-3. **Pada tahun 2018, kategori produk apa yang paling banyak diminati pembeli?**  
-4. **Pendapatan tertinggi terjadi pada tahun berapa?**
+- **Bagaimana Trend Review Produk? Kategori produk apa yang paling banyak mendapatkan review baik dan kurang baik dari pembeli?**
+- **Bagaimana Trend Produk yang laris dan kurang laris di E-commerce?**
 
 ### Proses Analisis:
 Dilakukan secara menyeluruh, dimulai dari:
