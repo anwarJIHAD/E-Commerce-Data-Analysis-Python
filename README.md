@@ -56,7 +56,7 @@ https://github.com/anwarJIHAD/E-Commerce-Data-Analysis-Python.git
 ```
 2. Go to the project directory
 ```
-cd data-analyst-dicoding
+cd E-Commerce-Data-Analysis-Python
 ```
 3. Install the required Python packages by running:
 ```
