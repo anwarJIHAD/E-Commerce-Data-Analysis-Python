@@ -62,31 +62,45 @@ order_reviews_df = pd.read_csv(os.path.join(base_path, "order_reviews_clean.csv"
 def best_review_categories():
     st.title("Analisis Kategori Produk dengan Rating Terbaik")
 
-    # Tambahkan input untuk memilih peringkat
     selected_rating = st.multiselect('Pilih Peringkat Produk', [1, 2, 3, 4, 5], default=[5])
 
-    # Filter baris dengan peringkat yang dipilih
     best_review = order_reviews_df[order_reviews_df['review_score'].isin(selected_rating)]
+    best_review = pd.merge(best_review, product_category,
+                           left_on='product_category_name_x',
+                           right_on='product_category_name', how='inner')
 
-    # Gabungkan dengan data product_category untuk mendapatkan nama kategori dalam bahasa Inggris
-    best_review = pd.merge(best_review, product_category, left_on='product_category_name_x', right_on='product_category_name', how='inner')
-
-    # Kelompokkan produk berdasarkan 'product_category_name_english'
+    # Group by rating dan kategori
     best_review = best_review.groupby(['review_score', 'product_category_name_english']).size().reset_index(name='count')
 
-    # Urutkan dari yang terbanyak
-    best_review_sorted = best_review.sort_values(by='count', ascending=False).head(5)
-    
-    # Menambahkan kode bar plot di bawah fungsi best_review_categories
-    # Membuat bar plot dari kategori produk dengan rating terbaik
+    # Ambil 5 teratas per rating
+    top_reviews = (
+        best_review.groupby('review_score', group_keys=False)
+        .apply(lambda x: x.sort_values('count', ascending=False).head(5))
+    )
+
+    if top_reviews.empty:
+        st.warning("Data tidak ditemukan untuk rating yang dipilih.")
+        return
+
+    # Mapping warna berdasarkan rating
+    color_map = {1: 'red', 2: 'orange', 3: 'yellow', 4: 'blue', 5: 'green'}
+    bar_colors = top_reviews['review_score'].map(color_map).fillna('gray')
+
+    # Buat plot horizontal
     plt.figure(figsize=(10, 6))
-    plt.barh(best_review_sorted['product_category_name_english'], best_review_sorted['count'], color='green', alpha=0.7)
+    plt.barh(top_reviews['product_category_name_english'],
+             top_reviews['count'],
+             color=bar_colors,
+             alpha=0.8)
+
     plt.xlabel('Jumlah Produk')
     plt.ylabel('Kategori Produk')
     plt.title(f'Kategori Produk dengan Rating {selected_rating}')
+    from matplotlib.patches import Patch
+    legend_elements = [Patch(facecolor=color, label=f'Rating {score}')
+                    for score, color in color_map.items() if score in selected_rating]
+    plt.legend(handles=legend_elements)
     plt.tight_layout()
-
-    # Menampilkan plot ke aplikasi Streamlit
     st.pyplot(plt)
 
 # Panggil fungsi best_review_categories() untuk menjalankannya

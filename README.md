@@ -72,7 +72,7 @@ pip install -r requirements.txt
 
 ```
 cd data-analyst-python/dashboard
-streamlit run .\Streamliit\main.py
+streamlit run .\Streamlit\main.py
 ```
 Access the dashboard in your web browser at `http://localhost:8501`.
 
